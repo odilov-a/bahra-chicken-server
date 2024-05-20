@@ -13,7 +13,7 @@ exports.getMe = async (req, res) => {
     }
     return res.json({
       data: {
-        token: sign(findUser._id),
+        token: sign({ id: findUser._id.toString() }), // Passing a plain object
         username: findUser.username,
       },
     });
@@ -68,12 +68,15 @@ exports.login = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     const { userId } = req.headers;
+    const updatedData = {
+      username: req.body.username,
+    };
+    if (req.body.password) {
+      updatedData.password = await bcrypt.hash(req.body.password, 10);
+    }
     const updatedUser = await Users.findByIdAndUpdate(
       userId,
-      {
-        username: req.body.username,
-        password: req.body.password,
-      },
+      updatedData,
       {
         new: true,
       }
