@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const blogSchema = new mongoose.Schema(
+const CHICKENS_TYPE = ["crude", "halfReady"];
+const productSchame = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -13,13 +14,17 @@ const blogSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    views: {
+    price: {
       type: Number,
-      default: 0,
+      required: true,
+    },
+    type: {
+      type: String,
+      enum: CHICKENS_TYPE,
     },
   },
   { timestamps: true }
 );
 
-const Blogs = mongoose.model("blogs", blogSchema);
-module.exports = Blogs;
+const Products = mongoose.model("products", productSchame);
+module.exports = Products;
