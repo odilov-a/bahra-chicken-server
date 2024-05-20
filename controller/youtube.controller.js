@@ -38,6 +38,7 @@ exports.updateYoutube = async (req, res) => {
       return res.status(404).json({ message: "Youtube not found" });
     }
     Object.assign(updateYoutube, req.body)
+    await updateYoutube.save();
     return res.json({ data: updateYoutube });
   } catch (err) {
     return res.status(500).json({ error: err.message });

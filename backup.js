@@ -30,7 +30,6 @@ async function zipAndSend() {
   const archive = archiver("zip", {
     zlib: { level: 9 },
   });
-
   output.on("close", function () {
     console.log(
       "Archive created successfully. Total bytes: " + archive.pointer()

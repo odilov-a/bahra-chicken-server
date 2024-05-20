@@ -40,6 +40,7 @@ exports.updateProduct = async (req, res) => {
     }
     req.body.image = req.images;
     Object.assign(updateProduct, req.body)
+    await updateProduct.save();
     return res.json({ data: updateProduct });
   } catch (err) {
     return res.status(500).json({ error: err.message });

@@ -54,11 +54,11 @@ const paginate = async (model, query, ...populateFields) => {
         totalPages, // Total number of pages
       },
       _links: {
-        self: `/api/page=${page}&page=${perPage}`, // Self link
-        first: `/api/page=1&page=${perPage}`, // First page link
-        prev: page > 1 ? `/api/page=${+page - 1}&page=${perPage}` : null, // Previous page link
-        next: page < totalPages ? `/api/page=${+page + 1}&page=${perPage}` : null, // Next page link
-        last: `/api/page=${totalPages}&page=${perPage}`, // Last page link
+        self: `https://api.bahra.uz/api/${model.modelName}?page=${page}&page=${perPage}`, // Self link
+        first: `https://api.bahra.uz/api/${model.modelName}?page=1&page=${perPage}`, // First page link
+        prev: page > 1 ? `https://api.bahra.uz/api/${model.modelName}?page=${+page - 1}&page=${perPage}` : null, // Previous page link
+        next: page < totalPages ? `https://api.bahra.uz/api/${model.modelName}?page=${+page + 1}&page=${perPage}` : null, // Next page link
+        last: `https://api.bahra.uz/api/${model.modelName}?page=${totalPages}&page=${perPage}`, // Last page link
       },
     };
   } catch (error) {

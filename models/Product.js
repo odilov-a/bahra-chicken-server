@@ -1,12 +1,29 @@
 const mongoose = require("mongoose");
-const CHICKENS_TYPE = ["crude", "halfReady"];
+const CHICKENS_TYPE = ["unripe", "halfReady"];
+
 const productSchame = new mongoose.Schema(
   {
-    title: {
+    titleUz: {
       type: String,
       required: true,
     },
-    description: {
+    descriptionUz: {
+      type: String,
+      required: true,
+    },
+    titleRu: {
+      type: String,
+      required: true,
+    },
+    descriptionRu: {
+      type: String,
+      required: true,
+    },
+    titleEng: {
+      type: String,
+      required: true,
+    },
+    descriptionEng: {
       type: String,
       required: true,
     },

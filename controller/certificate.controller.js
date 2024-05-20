@@ -40,6 +40,7 @@ exports.updateCertificate = async (req, res) => {
     }
     req.body.image = req.images;
     Object.assign(updateCertificate, req.body)
+    await updateCertificate.save();
     return res.json({ data: updateCertificate });
   } catch (err) {
     return res.status(500).json({ error: err.message });

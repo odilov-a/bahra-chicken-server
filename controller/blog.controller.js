@@ -42,6 +42,7 @@ exports.updateBlog = async (req, res) => {
     }
     req.body.image = req.images;
     Object.assign(updateBlog, req.body)
+    await updateBlog.save();
     return res.json({ data: updateBlog });
   } catch (err) {
     return res.status(500).json({ error: err.message });

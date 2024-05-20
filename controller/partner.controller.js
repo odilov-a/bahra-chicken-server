@@ -40,6 +40,7 @@ exports.updatePartner = async (req, res) => {
     }
     req.body.image = req.images;
     Object.assign(updatePartner, req.body)
+    await updatePartner.save();
     return res.json({ data: updatePartner });
   } catch (err) {
     return res.status(500).json({ error: err.message });
