@@ -10,6 +10,7 @@ exports.getAll = async (req, res) => {
         uz: translation.uz ? translation.uz : null,
         ru: translation.ru ? translation.ru : null,
         en: translation.en ? translation.en : null,
+        kr: translation.kr ? translation.kr : null,
       })),
     });
   } catch (err) {
@@ -37,13 +38,16 @@ exports.search = async (req, res) => {
   try {
     const { message } = req.params;
     const regex = new RegExp(message, "i");
+
     const translations = await Translations.find({
       $or: [
         { uz: { $regex: regex } },
         { ru: { $regex: regex } },
         { en: { $regex: regex } },
+        { kr: { $regex: regex } }
       ]
     });
+
     return res.json({
       data: translations.map((translation) => ({
         id: translation._id,
@@ -51,6 +55,7 @@ exports.search = async (req, res) => {
         uz: translation.uz ? translation.uz : null,
         ru: translation.ru ? translation.ru : null,
         en: translation.en ? translation.en : null,
+        kr: translation.kr ? translation.kr : null,
       }))
     });
   } catch (err) {
@@ -62,7 +67,7 @@ exports.create = async (req, res) => {
   try {
     const { lang } = req.params;
     const message = Object.values(req.body)[0];
-    const text = Object.values(req.body)[0];
+    const text = Object.values(req.body)[1];
     const findMessage = await Translations.findOne({
       message: message,
     });
@@ -93,7 +98,7 @@ exports.update = async (req, res) => {
     }
     findTranslation[lang] = translation;
     await findTranslation.save();
-    return res.json(findTranslation);
+    res.json(findTranslation);
   } catch (err) {
     console.log(err);
     return res.json(err);
