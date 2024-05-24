@@ -79,11 +79,14 @@ exports.create = async (req, res) => {
       await createdTranslation.save();
       return res.json(createdTranslation);
     } else {
-      findMessage[lang] = text;
+      if(!findMessage[lang]) {
+        findMessage[lang] = text;
+      }
       await findMessage.save();
       return res.json(findMessage);
     }
   } catch (err) {
+    console.log(err);
     return res.status(500).json({ error: err.message });
   }
 };
