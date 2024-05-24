@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-const CHICKENS_TYPE = ["unripe", "halfReady"];
+const CHICKENS_TYPE_ENG = ["unripeEng", "halfReadyEng"];
+const CHICKENS_TYPE_RU = ["unripeRu", "halfReadyRu"];
+const CHICKENS_TYPE_UZ = ["unripeUz", "halfReadyUz"];
 
 const productSchame = new mongoose.Schema(
   {
@@ -31,13 +33,27 @@ const productSchame = new mongoose.Schema(
       type: Array,
       required: true,
     },
+    image02: {
+      type: Array,
+    },
+    image03: {
+      type: Array,
+    },
     price: {
       type: Number,
       required: true,
     },
-    type: {
+    typeEng: {
       type: String,
-      enum: CHICKENS_TYPE,
+      enum: CHICKENS_TYPE_ENG,
+    },
+    typeRu: {
+      type: String,
+      enum: CHICKENS_TYPE_RU,
+    },
+    typeUz: {
+      type: String,
+      enum: CHICKENS_TYPE_UZ,
     },
   },
   { timestamps: true }

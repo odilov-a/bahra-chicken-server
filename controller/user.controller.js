@@ -14,7 +14,7 @@ exports.getMe = async (req, res) => {
     return res.json({
       data: {
         _id: findUser._id,
-        token: sign({ id: findUser._id.toString() }), // Passing a plain object
+        token: sign({ id: findUser._id.toString() }),
         username: findUser.username,
       },
     });

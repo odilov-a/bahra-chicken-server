@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const authMiddleware = require("../middlewares/auth.middleware.js");
-const uploadMiddleware = require("../middlewares/upload.middleware.js");
+const uploadMiddleware = require("../middlewares/three.upload.middleware.js");
 const productController = require("../controller/product.controller.js");
 const productRoutes = Router();
 
