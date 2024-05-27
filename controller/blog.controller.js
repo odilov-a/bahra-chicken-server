@@ -14,6 +14,8 @@ exports.getAllBlog = async (req, res) => {
     return res.json({
       data: filtered,
       pagination: blogs.pagination,
+      _links: blogs._links,
+      _meta: blogs._meta,
     });
   } catch (err) {
     console.log(err);

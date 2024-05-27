@@ -15,6 +15,8 @@ exports.getAllProduct = async (req, res) => {
     return res.json({
       data: filtered,
       pagination: products.pagination,
+      _links: products._links,
+      _meta: products._meta,
     });
   } catch (err) {
     return res.status(500).json({ error: err.message });
