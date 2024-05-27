@@ -1,10 +1,21 @@
 const Product = require("../models/Product.js");
-const pagination = require("../utils/pagination.js")
+const pagination = require("../utils/pagination.js");
+const filterByLang = require("../utils/filterByLang.js");
 
 exports.getAllProduct = async (req, res) => {
   try {
     const products = await pagination(Product, req.query);
-    return res.json(products);
+    const filtered = filterByLang(
+      products.data,
+      req.query.lang,
+      "title",
+      "description",
+      "type"
+    );
+    return res.json({
+      data: filtered,
+      pagination: products.pagination,
+    });
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
@@ -64,7 +75,9 @@ exports.updateProduct = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
   try {
-    const deletedProduct = await Product.findByIdAndDelete(req.params.productId);
+    const deletedProduct = await Product.findByIdAndDelete(
+      req.params.productId
+    );
     if (!deletedProduct) {
       return res.status(404).json({ message: "Product not found" });
     }

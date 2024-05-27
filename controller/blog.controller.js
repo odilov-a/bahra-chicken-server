@@ -1,11 +1,22 @@
 const Blog = require("../models/Blog.js");
-const pagination = require("../utils/pagination.js")
+const pagination = require("../utils/pagination.js");
+const filterByLang = require("../utils/filterByLang.js");
 
 exports.getAllBlog = async (req, res) => {
   try {
     const blogs = await pagination(Blog, req.query);
-    return res.json(blogs);
+    const filtered = filterByLang(
+      blogs.data,
+      req.query.lang,
+      "title",
+      "description"
+    );
+    return res.json({
+      data: filtered,
+      pagination: blogs.pagination,
+    });
   } catch (err) {
+    console.log(err);
     return res.status(500).json({ error: err.message });
   }
 };
@@ -27,7 +38,7 @@ exports.getBlogById = async (req, res) => {
 exports.createBlog = async (req, res) => {
   try {
     req.body.image = req.images;
-    const newBlog = await Blog.create({...req.body});
+    const newBlog = await Blog.create({ ...req.body });
     return res.json({ data: newBlog });
   } catch (err) {
     return res.status(500).json({ error: err.message });
@@ -41,7 +52,7 @@ exports.updateBlog = async (req, res) => {
       return res.status(404).json({ message: "Blog not found" });
     }
     req.body.image = req.images;
-    Object.assign(updateBlog, req.body)
+    Object.assign(updateBlog, req.body);
     await updateBlog.save();
     return res.json({ data: updateBlog });
   } catch (err) {

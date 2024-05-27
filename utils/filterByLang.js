@@ -68,11 +68,4 @@ const filterByLang = (items = [], lang, ...fields) => {
         };
     }
 };
-
-// Listen for messages from the parent thread
-parentPort.on('message', ({ items, lang, fields }) => {
-    // Call the filterByLang function with the received parameters
-    const result = filterByLang(items, lang, ...fields);
-    // Send the filtered result back to the parent thread
-    parentPort.postMessage(result);
-});
+module.exports = filterByLang;
