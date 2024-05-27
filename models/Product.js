@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const CHICKENS_TYPE_ENG = ["unripeEng", "halfReadyEng"];
-const CHICKENS_TYPE_RU = ["unripeRu", "halfReadyRu"];
-const CHICKENS_TYPE_UZ = ["unripeUz", "halfReadyUz"];
+const CHICKENS_TYPE_ENG = ["Raw Chicken", "Half-ready food"];
+const CHICKENS_TYPE_RU = ["Сырые куриные", "Полуфабрикаты"];
+const CHICKENS_TYPE_UZ = ["Xom tovuq", "Yarim tayyor ovqat"];
 
 const productSchame = new mongoose.Schema(
   {
