@@ -17,25 +17,23 @@ exports.getAll = async (req, res) => {
     return res.json(err);
   }
 };
-
 exports.findByLang = async (req, res) => {
   try {
-    const { lang } = req.params;
-    if(lang === 'eng') {
-      lang = 'en'
+    let { lang } = req.params;
+    if (lang === 'eng') {
+      lang = 'en';
     }
     const translations = await Translations.find();
     const obj = {};
-    const result = [];
     translations.forEach((translation) => {
       obj[translation.message] = translation[lang] || null;
     });
-    result.push(obj);
-    return res.json(result[0]);
+    return res.json(obj);
   } catch (err) {
     return res.json(err);
   }
 };
+
 
 exports.search = async (req, res) => {
   try {
