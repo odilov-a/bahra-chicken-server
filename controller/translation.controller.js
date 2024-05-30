@@ -21,6 +21,9 @@ exports.getAll = async (req, res) => {
 exports.findByLang = async (req, res) => {
   try {
     const { lang } = req.params;
+    if(lang === 'eng') {
+      lang = 'en'
+    }
     const translations = await Translations.find();
     const obj = {};
     const result = [];
