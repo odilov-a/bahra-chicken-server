@@ -5,6 +5,9 @@ const filterByLang = require("../utils/filterByLang.js");
 exports.getAllBlog = async (req, res) => {
   try {
     const blogs = await pagination(Blog, req.query);
+    if(req.query.lang == 'en') {
+      req.query.lang = 'eng';
+    }
     const filtered = filterByLang(
       blogs.data,
       req.query.lang,
