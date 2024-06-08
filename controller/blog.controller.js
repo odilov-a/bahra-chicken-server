@@ -54,6 +54,8 @@ exports.updateBlog = async (req, res) => {
   try {
     if (req.images.length > 0) {
       req.body.image = req.images;
+    } else {
+      delete req.body.image;
     }
     const updateBlog = await Blog.findByIdAndUpdate(
       req.params.blogId,

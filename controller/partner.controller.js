@@ -36,6 +36,8 @@ exports.updatePartner = async (req, res) => {
   try {
     if (req.images.length > 0) {
       req.body.image = req.images;
+    } else {
+      delete req.body.image;
     }
     const updatePartner = await Partner.findByIdAndUpdate(
       req.params.partnerId,

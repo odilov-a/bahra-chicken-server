@@ -36,6 +36,8 @@ exports.updateGallery = async (req, res) => {
   try {
     if (req.images.length > 0) {
       req.body.image = req.images;
+    } else {
+      delete req.body.image;
     }
     const updateGallery = await Gallery.findByIdAndUpdate(
       req.params.galleryId,

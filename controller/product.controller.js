@@ -58,12 +58,18 @@ exports.updateProduct = async (req, res) => {
   try {
     if (req.images.length > 0) {
       req.body.image = req.images;
+    } else {
+      delete req.body.image;
     }
     if (req.images02.length > 0) {
       req.body.image02 = req.images02;
+    } else {
+      delete req.body.image02;
     }
     if (req.images03.length > 0) {
       req.body.image03 = req.images03;
+    } else {
+      delete req.body.image03;
     }
     const updateProduct = await Product.findByIdAndUpdate(
       req.params.productId,

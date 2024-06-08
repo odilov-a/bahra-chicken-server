@@ -36,6 +36,8 @@ exports.updateCertificate = async (req, res) => {
   try {
     if (req.images.length > 0) {
       req.body.image = req.images;
+    } else {
+      delete req.body.image;
     }
     const updateCertificate = await Certificate.findByIdAndUpdate(
       req.params.certificateId,
