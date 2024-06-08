@@ -61,14 +61,14 @@ exports.updateProduct = async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
     const updateData = { ...req.body };
-    if (req.images && req.images.length !== 0) {
-      updateData.image = req.images;
+    if(req.images.length > 0) {
+      req.body.image = req.images;
     }
-    if (req.images02 && req.images02.length !== 0) {
-      updateData.image02 = req.images02;
+    if(req.images02.length > 0) {
+      req.body.image02 = req.images02;
     }
-    if (req.images03 && req.images03.length !== 0) {
-      updateData.image03 = req.images03;
+    if(req.images03.length > 0) {
+      req.body.image03 = req.images03;
     }
     Object.assign(updateProduct, updateData);
     await updateProduct.save();

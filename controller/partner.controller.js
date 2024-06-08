@@ -38,7 +38,9 @@ exports.updatePartner = async (req, res) => {
     if (!updatePartner) {
       return res.status(404).json({ message: "Partner not found" });
     }
-    req.body.image = req.images;
+    if(req.images.length > 0) {
+      req.body.image = req.images;
+    }
     Object.assign(updatePartner, req.body)
     await updatePartner.save();
     return res.json({ data: updatePartner });

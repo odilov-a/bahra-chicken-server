@@ -38,7 +38,9 @@ exports.updateCertificate = async (req, res) => {
     if (!updateCertificate) {
       return res.status(404).json({ message: "Certificate not found" });
     }
-    req.body.image = req.images;
+    if(req.images.length > 0) {
+      req.body.image = req.images;
+    }
     Object.assign(updateCertificate, req.body)
     await updateCertificate.save();
     return res.json({ data: updateCertificate });

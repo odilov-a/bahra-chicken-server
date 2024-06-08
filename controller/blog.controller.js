@@ -56,7 +56,9 @@ exports.updateBlog = async (req, res) => {
     if (!updateBlog) {
       return res.status(404).json({ message: "Blog not found" });
     }
-    req.body.image = req.images;
+    if(req.images.length > 0) {
+      req.body.image = req.images;
+    }
     Object.assign(updateBlog, req.body);
     await updateBlog.save();
     return res.json({ data: updateBlog });

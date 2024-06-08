@@ -38,7 +38,9 @@ exports.updateGallery = async (req, res) => {
     if (!updateGallery) {
       return res.status(404).json({ message: "Gallery not found" });
     }
-    req.body.image = req.images;
+    if(req.images.length > 0) {
+      req.body.image = req.images;
+    }
     Object.assign(updateGallery, req.body)
     await updateGallery.save();
     return res.json({ data: updateGallery });
