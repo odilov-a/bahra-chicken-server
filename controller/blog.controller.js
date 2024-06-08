@@ -52,15 +52,17 @@ exports.createBlog = async (req, res) => {
 
 exports.updateBlog = async (req, res) => {
   try {
-    const updateBlog = await Blog.findById(req.params.blogId);
+    if (req.images.length > 0) {
+      req.body.image = req.images;
+    }
+    const updateBlog = await Blog.findByIdAndUpdate(
+      req.params.blogId,
+      { ...req.body },
+      { new: true }
+    );
     if (!updateBlog) {
       return res.status(404).json({ message: "Blog not found" });
     }
-    if(req.images.length > 0) {
-      req.body.image = req.images;
-    }
-    Object.assign(updateBlog, req.body);
-    await updateBlog.save();
     return res.json({ data: updateBlog });
   } catch (err) {
     return res.status(500).json({ error: err.message });

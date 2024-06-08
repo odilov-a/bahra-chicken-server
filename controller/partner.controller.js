@@ -34,15 +34,17 @@ exports.createPartner = async (req, res) => {
 
 exports.updatePartner = async (req, res) => {
   try {
-    const updatePartner = await Partner.findById(req.params.partnerId);
+    if (req.images.length > 0) {
+      req.body.image = req.images;
+    }
+    const updatePartner = await Partner.findByIdAndUpdate(
+      req.params.partnerId,
+      { ...req.body },
+      { new: true }
+    );
     if (!updatePartner) {
       return res.status(404).json({ message: "Partner not found" });
     }
-    if(req.images.length > 0) {
-      req.body.image = req.images;
-    }
-    Object.assign(updatePartner, req.body)
-    await updatePartner.save();
     return res.json({ data: updatePartner });
   } catch (err) {
     return res.status(500).json({ error: err.message });

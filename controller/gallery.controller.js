@@ -1,5 +1,5 @@
 const Gallery = require("../models/Gallery.js");
-const pagination = require("../utils/pagination.js")
+const pagination = require("../utils/pagination.js");
 
 exports.getAllGallery = async (req, res) => {
   try {
@@ -25,7 +25,7 @@ exports.getGalleryById = async (req, res) => {
 exports.createGallery = async (req, res) => {
   try {
     req.body.image = req.images;
-    const newGallery = await Gallery.create({...req.body});
+    const newGallery = await Gallery.create({ ...req.body });
     return res.json({ data: newGallery });
   } catch (err) {
     return res.status(500).json({ error: err.message });
@@ -34,15 +34,17 @@ exports.createGallery = async (req, res) => {
 
 exports.updateGallery = async (req, res) => {
   try {
-    const updateGallery = await Gallery.findById(req.params.galleryId);
+    if (req.images.length > 0) {
+      req.body.image = req.images;
+    }
+    const updateGallery = await Gallery.findByIdAndUpdate(
+      req.params.galleryId,
+      { ...req.body },
+      { new: true }
+    );
     if (!updateGallery) {
       return res.status(404).json({ message: "Gallery not found" });
     }
-    if(req.images.length > 0) {
-      req.body.image = req.images;
-    }
-    Object.assign(updateGallery, req.body)
-    await updateGallery.save();
     return res.json({ data: updateGallery });
   } catch (err) {
     return res.status(500).json({ error: err.message });
@@ -51,7 +53,9 @@ exports.updateGallery = async (req, res) => {
 
 exports.deleteGallery = async (req, res) => {
   try {
-    const deletedGallery = await Gallery.findByIdAndDelete(req.params.galleryId);
+    const deletedGallery = await Gallery.findByIdAndDelete(
+      req.params.galleryId
+    );
     if (!deletedGallery) {
       return res.status(404).json({ message: "Gallery not found" });
     }

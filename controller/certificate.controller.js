@@ -34,15 +34,17 @@ exports.createCertificate = async (req, res) => {
 
 exports.updateCertificate = async (req, res) => {
   try {
-    const updateCertificate = await Certificate.findById(req.params.certificateId);
+    if (req.images.length > 0) {
+      req.body.image = req.images;
+    }
+    const updateCertificate = await Certificate.findByIdAndUpdate(
+      req.params.certificateId,
+      { ...req.body },
+      { new: true }
+    );
     if (!updateCertificate) {
       return res.status(404).json({ message: "Certificate not found" });
     }
-    if(req.images.length > 0) {
-      req.body.image = req.images;
-    }
-    Object.assign(updateCertificate, req.body)
-    await updateCertificate.save();
     return res.json({ data: updateCertificate });
   } catch (err) {
     return res.status(500).json({ error: err.message });
