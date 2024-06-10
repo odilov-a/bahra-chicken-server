@@ -40,12 +40,11 @@ exports.getProductById = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   try {
-    const { images, images02, images03 } = req;
     const newProductData = {
       ...req.body,
-      image: images,
-      image02: images02,
-      image03: images03,
+      image: req.images.image,
+      image02: req.images.image02,
+      image03: req.images.image03,
     };
     const newProduct = await Product.create(newProductData);
     return res.json({ data: newProduct });
@@ -56,34 +55,38 @@ exports.createProduct = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
   try {
-    if (req.images.length > 0) {
-      req.body.image = req.images;
+    if (req.images.image.length > 0) {
+      req.body.image = req.images.image;
     } else {
       delete req.body.image;
     }
-    if (req.images02.length > 0) {
-      req.body.image02 = req.images02;
+    if (req.images.image02.length > 0) {
+      req.body.image02 = req.images.image02;
     } else {
       delete req.body.image02;
     }
-    if (req.images03.length > 0) {
-      req.body.image03 = req.images03;
+    if (req.images.image03.length > 0) {
+      req.body.image03 = req.images.image03;
     } else {
       delete req.body.image03;
     }
+
     const updateProduct = await Product.findByIdAndUpdate(
       req.params.productId,
       { ...req.body },
       { new: true }
     );
+
     if (!updateProduct) {
       return res.status(404).json({ message: "Product not found" });
     }
+
     return res.json({ data: updateProduct });
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
 };
+
 
 exports.deleteProduct = async (req, res) => {
   try {

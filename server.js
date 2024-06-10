@@ -24,7 +24,7 @@ function startServerOnPort(port) {
   const listen = app.listen(port, () => console.log(`server is running ${port}`))
   listen.on('error', () => {
     console.log(`Port ${port} is busy. Trying a different port...`)
-    startServerOnPort(port + 1)
+    startServerOnPort(parseInt(port) + 1)
   })
 }
 

@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
-const CHICKENS_TYPE_ENG = ["Raw Chicken", "Half-ready food"];
-const CHICKENS_TYPE_RU = ["Сырые куриные", "Полуфабрикаты"];
-const CHICKENS_TYPE_UZ = ["Xom tovuq", "Yarim tayyor ovqat"];
+// const CHICKENS_TYPE_ENG = ["Raw Chicken", "Half-ready food"];
+// const CHICKENS_TYPE_RU = ["Сырые куриные", "Полуфабрикаты"];
+// const CHICKENS_TYPE_UZ = ["Xom tovuq", "Yarim tayyor ovqat"];
 
-const productSchame = new mongoose.Schema(
+const productSchema = new mongoose.Schema(
   {
     titleUz: {
       type: String,
@@ -39,25 +39,13 @@ const productSchame = new mongoose.Schema(
     image03: {
       type: Array,
     },
-    price: {
+    type: {
       type: Number,
       required: true,
-    },
-    typeEng: {
-      type: String,
-      enum: CHICKENS_TYPE_ENG,
-    },
-    typeRu: {
-      type: String,
-      enum: CHICKENS_TYPE_RU,
-    },
-    typeUz: {
-      type: String,
-      enum: CHICKENS_TYPE_UZ,
-    },
+    }
   },
   { timestamps: true }
 );
 
-const Products = mongoose.model("products", productSchame);
+const Products = mongoose.model("products", productSchema);
 module.exports = Products;
